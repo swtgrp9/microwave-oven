@@ -8,10 +8,10 @@ namespace Microwave.Test.Integration
 {
     [TestFixture]
     public class IT1_DoorUI
-    { 
+    {
 
 
         [SetUp]
-        
+
     }
 }
