@@ -56,14 +56,29 @@ namespace Microwave.Test.Integration
 
         }
 
+        [Test]
+        public void StartCancelButtonPressed_StartCooking()
+        {
+            _startCancelButton.Press();
+            _cookController.StartCooking(50, 10);
+        }
 
+        [Test]
+        public void StartCancelButtonPressed_StopCooking()
+        {
+            _startCancelButton.Press();
+            _cookController.StartCooking(50, 10);
 
+            _startCancelButton.Press();
+            _cookController.Stop();
+        }
+
+        [Test]
         public void TmrButPressed_WhileChoosingPower_DisplayTimer()
         {
-            //Showing PowerLevel -> Time button pressed
-            //Show Time = 00.00
-            //Change to Timerstate
-
+            _display.ShowPower(50);
+            _timeButton.Press();
+            _display.ShowTime(00,00);
             
         }
 
