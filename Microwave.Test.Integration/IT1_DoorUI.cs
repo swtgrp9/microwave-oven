@@ -42,6 +42,23 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
+        public void OpenDoorTurnOnLight()
+        {
+            _door.Open();
+
+            _light.Received(1).TurnOn();
+        }
+
+        [Test]
+        public void OpenDoorTurnOffLight()
+        {
+            _door.Open();
+            _door.Close();
+
+            _light.Received(1).TurnOff();
+        }
+
+        [Test]
         public void OpenDoorBeforeCooking()
         {
             //_DisplayClear_LightOn_StopCooking_PauseTimer
@@ -56,6 +73,9 @@ namespace Microwave.Test.Integration
         public void OpenDoorWhileCooking()
         {
             //_DisplayClear_LightOn_StopCooking_PauseTimer
+            _door.Open();
+
+            _light.Received(1).TurnOn();
         }
 
         [Test]
