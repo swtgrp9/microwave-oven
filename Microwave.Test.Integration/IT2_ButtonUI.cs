@@ -43,7 +43,7 @@ namespace Microwave.Test.Integration
 
        
         [Test]
-        public void PwrButPressed_DisplayPwrLvl()
+        public void TimerButPressed_DisplayDefaultTimer()
         {
             //_Display = off
             //Light = off
@@ -51,8 +51,8 @@ namespace Microwave.Test.Integration
             //Timer=Default
             //Door = closed
 
-            _powerButton.Press();
-            _display.ShowPower(50);
+            _timeButton.Press();
+            _display.ShowTime(00,00);
 
         }
 
