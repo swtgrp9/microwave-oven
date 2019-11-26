@@ -50,7 +50,7 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void OpenDoorTurnOffLight()
+        public void OpenAndCloseDoorTurnOffLight()
         {
             _door.Open();
             _door.Close();
