@@ -41,7 +41,21 @@ namespace Microwave.Test.Integration
 
         }
 
-       
+        [Test]
+        public void PwrButPressed_DisplayPower()
+        {
+            //_Display = off
+            //Light = off
+            //Cooking=false
+            //Timer=Default
+            //Door = closed
+
+            _powerButton.Press();
+            _display.ShowPower(50);
+
+        }
+
+
         [Test]
         public void TimerButPressed_DisplayDefaultTimer()
         {
@@ -80,6 +94,14 @@ namespace Microwave.Test.Integration
             _timeButton.Press();
             _display.ShowTime(00,00);
             
+        }
+
+        [Test]
+        public void PwrButPressed_WhileChoosingTime_DisplayPower()
+        {
+            _display.ShowTime(00,00);
+            _powerButton.Press();
+            _display.ShowPower(50);
         }
 
 
