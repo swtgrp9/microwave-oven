@@ -58,37 +58,37 @@ namespace Microwave.Test.Integration
             _light.Received(1).TurnOff();
         }
 
-        [Test]
-        public void OpenDoorBeforeCooking()
-        {
-            //_DisplayClear_LightOn_StopCooking_PauseTimer
-            //LightOn
-            //Cooking=false
-            //Timer=Default
+        //[Test]
+        //public void OpenDoorBeforeCooking()
+        //{
+        //    //_DisplayClear_LightOn_StopCooking_PauseTimer
+        //    //LightOn
+        //    //Cooking=false
+        //    //Timer=Default
 
 
-        }
+        //}
 
-        [Test]
-        public void OpenDoorWhileCooking()
-        {
-            //_DisplayClear_LightOn_StopCooking_PauseTimer
-            _door.Open();
+        //[Test]
+        //public void OpenDoorWhileCooking()
+        //{
+        //    //_DisplayClear_LightOn_StopCooking_PauseTimer
+        //    _door.Open();
 
-            _light.Received(1).TurnOn();
-        }
+        //    _light.Received(1).TurnOn();
+        //}
 
-        [Test]
-        public void ClosedDoorBeforeCook()
-        {
-            //_DisplayClear_LightOn_StopCooking_PauseTimer
-        }
+        //[Test]
+        //public void ClosedDoorBeforeCook()
+        //{
+        //    //_DisplayClear_LightOn_StopCooking_PauseTimer
+        //}
 
-        [Test]
-        public void ClosedDoorDuringCook()
-        {
-            //_DisplayClear_LightOn_StopCooking_PauseTimer
-        }
+        //[Test]
+        //public void ClosedDoorDuringCook()
+        //{
+        //    //_DisplayClear_LightOn_StopCooking_PauseTimer
+        //}
 
 
 
