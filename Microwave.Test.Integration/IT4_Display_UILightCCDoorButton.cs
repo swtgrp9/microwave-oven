@@ -8,6 +8,8 @@ using NUnit.Framework;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Microwave.Test.Integration
 {
@@ -54,18 +56,43 @@ namespace Microwave.Test.Integration
 
         [Test]
 
-        public void OogaBooga()
+        public void Display_PowerTest()
         {
             _powerButton.Press();
             _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("Display shows: 50 W"))); //Default power level er 50
         }
 
         [Test]
-        public void OogaBoogaLoo()
+        public void Display_TimerTest()
         {
             _powerButton.Press();
             _timeButton.Press();
             _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("Display shows: 01:00"))); //Default time er 1min
+        }
+
+        //[Test] TODO
+
+        //public void ShowTime_Called()
+        //{
+        //    _powerButton.Press();
+        //    _timeButton.Press();
+        //    _startCancelButton.Press();
+
+            
+        //    //_output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("Display shows: 00:47"))); //Default time er 1min
+        //}
+
+        [Test]
+        public void Display_CookingisDone_Clear_Test()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+
+            Thread.Sleep(61000); //Venter 61 sekunder, så cookingisdone kaldes og display skal cleares.
+
+            _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("Display cleared")));
+
         }
     }
 }
