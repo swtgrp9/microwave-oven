@@ -32,7 +32,7 @@ namespace Microwave.Test.Integration
 
         private ILight _light;
 
-        private Display _uut;
+        private Display _iut;
 
         [SetUp]
         public void SetUp()
@@ -44,17 +44,16 @@ namespace Microwave.Test.Integration
             _timer = Substitute.For<ITimer>();
 
             //includes
-            _cookController = new CookController(_timer, _uut, _powerTube, _userInterface);
+            _cookController = new CookController(_timer, _iut, _powerTube, _userInterface);
             _light = new Light(_output);
-            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _uut, _light, _cookController);
+            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _iut, _light, _cookController);
             _door = new Door();
             _powerButton = new Button();
             _timeButton = new Button();
             _startCancelButton = new Button();
 
-
             //testing
-            _uut = new Display(_output);
+            _iut = new Display(_output);
 
         }
     }
