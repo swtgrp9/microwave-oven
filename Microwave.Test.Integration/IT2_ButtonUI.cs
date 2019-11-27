@@ -51,7 +51,7 @@ namespace Microwave.Test.Integration
             //Door = closed
 
             _powerButton.Press();
-            _display.ShowPower(50);
+            _display.Received(1).ShowPower(Arg.Any<int>());
 
         }
 
@@ -66,7 +66,7 @@ namespace Microwave.Test.Integration
             //Door = closed
 
             _timeButton.Press();
-            _display.ShowTime(00,00);
+            _display.Received().ShowTime(Arg.Any<int>(), Arg.Any<int>());
 
         }
 
