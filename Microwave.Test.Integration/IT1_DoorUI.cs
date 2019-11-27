@@ -74,16 +74,16 @@ namespace Microwave.Test.Integration
 
         }
 
-        [Test]
-        public void OpenDoorWhileCooking()
-        {
+        //[Test]
+        //public void OpenDoorWhileCooking()
+        //{
 
-            _powerTube.TurnOn(100);
-            _cookController.StartCooking(100, 10);
-            _door.Open();
-            _powerTube.TurnOff();
+        //    _powerTube.TurnOn(100);
+        //    _cookController.StartCooking(100, 10);
+        //    _door.Open();
+        //    _powerTube.TurnOff();
 
-        }
+        //}
 
         //[Test]
         //public void OpenDoorBeforeCooking()
