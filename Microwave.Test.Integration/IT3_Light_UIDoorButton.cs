@@ -78,6 +78,38 @@ namespace Microwave.Test.Integration
             _door.Close();
             _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("off")));
         }
+
+        [Test]
+        public void MicrowaveRunningLightOn()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+
+            _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("on")));
+        }
+
+        [Test]
+        public void MicrowaveCancelLightOff()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+            _startCancelButton.Press();
+
+            _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("off")));
+        }
+
+        [Test]
+        public void CookingDoneLightOff()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+            _iut.CookingIsDone();
+
+            _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("off")));
+        }
     }
 
 }
