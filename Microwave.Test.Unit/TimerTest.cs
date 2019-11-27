@@ -4,6 +4,8 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
 namespace Microwave.Test.Unit
 {
+    //Rettet fejl i samtlige tests så den ikke starter på 2000, men på 2.
+
     [TestFixture]
     public class TimerTest
     {
@@ -21,7 +23,7 @@ namespace Microwave.Test.Unit
             ManualResetEvent pause = new ManualResetEvent(false);
 
             uut.TimerTick += (sender, args) => pause.Set();
-            uut.Start(2000);
+            uut.Start(2);
 
             // wait for a tick, but no longer
             Assert.That(pause.WaitOne(1100));
@@ -35,7 +37,7 @@ namespace Microwave.Test.Unit
             ManualResetEvent pause = new ManualResetEvent(false);
 
             uut.TimerTick += (sender, args) => pause.Set();
-            uut.Start(2000);
+            uut.Start(2);
 
             // wait shorter than a tick, shouldn't come
             Assert.That(!pause.WaitOne(900));
@@ -49,7 +51,7 @@ namespace Microwave.Test.Unit
             ManualResetEvent pause = new ManualResetEvent(false);
 
             uut.Expired += (sender, args) => pause.Set();
-            uut.Start(2000);
+            uut.Start(2);
 
             // wait for expiration, but not much longer, should come
             Assert.That(pause.WaitOne(2100));
@@ -63,7 +65,7 @@ namespace Microwave.Test.Unit
             ManualResetEvent pause = new ManualResetEvent(false);
 
             uut.Expired += (sender, args) => pause.Set();
-            uut.Start(2000);
+            uut.Start(2);
 
             // wait shorter than expiration, shouldn't come
             Assert.That(!pause.WaitOne(1900));
@@ -80,7 +82,7 @@ namespace Microwave.Test.Unit
             uut.Expired += (sender, args) => pause.Set();
             uut.TimerTick += (sender, args) => notifications++;
 
-            uut.Start(2000);
+            uut.Start(2);
 
             // wait longer than expiration
             Assert.That(pause.WaitOne(2100));

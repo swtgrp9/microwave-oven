@@ -44,14 +44,10 @@ namespace Microwave.Test.Integration
         [Test]
         public void PwrButPressed_DisplayPower()
         {
-            //_Display = off
-            //Light = off
-            //Cooking=false
-            //Timer=Default
-            //Door = closed
+            
 
             _powerButton.Press();
-            _display.ShowPower(50);
+            _display.Received(1).ShowPower(Arg.Any<int>());
 
         }
 
@@ -59,14 +55,9 @@ namespace Microwave.Test.Integration
         [Test]
         public void TimerButPressed_DisplayDefaultTimer()
         {
-            //_Display = off
-            //Light = off
-            //Cooking=false
-            //Timer=Default
-            //Door = closed
-
+            
             _timeButton.Press();
-            _display.ShowTime(00,00);
+            _display.Received().ShowTime(Arg.Any<int>(), Arg.Any<int>());
 
         }
 
@@ -74,7 +65,7 @@ namespace Microwave.Test.Integration
         public void StartCancelButtonPressed_StartCooking()
         {
             _startCancelButton.Press();
-            _cookController.StartCooking(50, 10);
+            _cookController.StartCooking(Arg.Any<int>(), Arg.Any<int>());
         }
 
         [Test]
@@ -90,35 +81,49 @@ namespace Microwave.Test.Integration
         [Test]
         public void TmrButPressed_WhileChoosingPower_DisplayTimer()
         {
-            _display.ShowPower(50);
+            _powerButton.Press();
+            _display.ShowPower(Arg.Any<int>());
             _timeButton.Press();
-            _display.ShowTime(00,00);
+            _display.ShowTime(Arg.Any<int>(), Arg.Any<int>());
             
         }
 
         [Test]
         public void PwrButPressed_WhileChoosingTime_DisplayPower()
         {
-            _display.ShowTime(00,00);
+            _timeButton.Press();
+            _display.ShowTime(Arg.Any<int>(), Arg.Any<int>());
             _powerButton.Press();
-            _display.ShowPower(50);
+            _display.ShowPower(Arg.Any<int>());
         }
 
-
-
-        public void StartCancelPressed_WhileSettingPower_ClearDisplay()
+        [Test]
+        public void StartCancelPressed_WhileSetup_ClearDisplayAndTurnOnLight()
         {
-            //Pressing Start/Cancel while choosing power:
-            //Light off
-            //ClearDisplay
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+
+            _display.Received(1).Clear();
+            _light.Received(1).TurnOn();
+            _cookController.Received(1).StartCooking(Arg.Any<int>(), Arg.Any<int>());
         }
 
-        public void StartCancelPressed_WhileSettingTimer_ClearDisplay()
+        [Test]
+        public void StartCancelPressed_WhileCooking()
         {
-            //Pressing Start/Cancel while choosing power:
-            //Light on
-            //ClearDisplay
-            //Start cooking
+            _powerButton.Press();
+            _timeButton.Press();
+           
+            _startCancelButton.Press();
+            _cookController.Received(1).StartCooking(Arg.Any<int>(), Arg.Any<int>());
+            
+            _startCancelButton.Press();
+            _cookController.Received(1).Stop();
+            _display.Received(2).Clear();
+            _light.Received(1).TurnOn();
+           
+           
         }
 
 
