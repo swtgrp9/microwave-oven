@@ -19,6 +19,7 @@ namespace Microwave.Test.Unit
             uut = new PowerTube(output);
         }
 
+        //Ændret til W i stedet for %
         [Test]
         public void TurnOn_WasOff_CorrectOutput()
         {
@@ -26,6 +27,7 @@ namespace Microwave.Test.Unit
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains("50 W")));
         }
 
+        
         [Test]
         public void TurnOff_WasOn_CorrectOutput()
         {
@@ -54,12 +56,14 @@ namespace Microwave.Test.Unit
             Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.TurnOn(-1));
         }
 
+        //Ændret boundary value til 701
         [Test]
         public void TurnOn_HighPower_ThrowsException()
         {
             Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.TurnOn(701));
         }
 
+        //Ændret boundary value til 49
         [Test]
         public void TurnOn_ZeroPower_ThrowsException()
         {
