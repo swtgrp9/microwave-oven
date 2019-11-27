@@ -39,6 +39,8 @@ namespace MicrowaveOvenClasses.Boundary
             Expired?.Invoke(this, System.EventArgs.Empty);
         }
 
+        //Rettet fejl, så den nu tæller 1 sekund ned i stedet for 1000 sekunder. Rettet i unittests, samt kan det ses at den tæller 1 sekund ned i ved kørsel af programmet.
+
         private void OnTimerEvent(object sender, System.Timers.ElapsedEventArgs args)
         {
             // One tick has passed

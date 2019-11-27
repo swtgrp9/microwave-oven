@@ -4,6 +4,8 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
 namespace Microwave.Test.Unit
 {
+    //Rettet fejl i samtlige tests så den ikke starter på 2000, men på 2.
+
     [TestFixture]
     public class TimerTest
     {
