@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Castle.Core.Smtp;
 using NSubstitute;
 using NSubstitute.Core.Arguments;
 using NSubstitute.ReceivedExtensions;
@@ -32,7 +33,9 @@ namespace Microwave.Test.Integration
 
         private IUserInterface _userInterface;
 
-        private Light _uut;
+        private ILight _light;
+
+        private UserInterface _iut;
 
         [SetUp]
         public void SetUp()
@@ -44,30 +47,36 @@ namespace Microwave.Test.Integration
             _timer = Substitute.For<ITimer>();
 
             //includes
-            _cookController = new CookController(_timer, _display, _powerTube, _userInterface);
+            _cookController = new CookController(_timer, _display, _powerTube, _iut);
             _display = new Display(_output);
-            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _uut, _cookController);
+            //_userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _iut, _cookController);
             _door = new Door();
             _powerButton = new Button();
             _timeButton = new Button();
             _startCancelButton = new Button();
+            _light = new Light(_output);
 
 
             //testing
-            _uut = new Light(_output);
+            //_iut = new Light(_output);
+            _iut = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
 
         }
 
         [Test]
-        public void TurnOn_DisplayOutput()
+        public void OpenDoorLightOn()
         {
+            _door.Open();
+            _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("on")));
 
         }
 
         [Test]
-        public void TurnOff_DisplayNoOutput()
+        public void CloseDoorLightOff()
         {
-
+            _door.Open();
+            _door.Close();
+            _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("off")));
         }
     }
 
