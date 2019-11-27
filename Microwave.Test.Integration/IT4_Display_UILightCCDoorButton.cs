@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using NSubstitute;
 using NSubstitute.Core.Arguments;
 using NSubstitute.ReceivedExtensions;
@@ -19,10 +20,6 @@ namespace Microwave.Test.Integration
 
         private ICookController _cookController;
 
-        
-        private IPowerTube _powerTube;
-
-        private ITimer _timer;
 
         private IDoor _door;
 
@@ -40,21 +37,36 @@ namespace Microwave.Test.Integration
             //fakes
 
             _output = Substitute.For<IOutput>();
-            _powerTube = Substitute.For<IPowerTube>();
-            _timer = Substitute.For<ITimer>();
+            _cookController = Substitute.For<ICookController>();
 
             //includes
-            _cookController = new CookController(_timer, _iut, _powerTube, _userInterface);
+
             _light = new Light(_output);
-            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _iut, _light, _cookController);
             _door = new Door();
             _powerButton = new Button();
             _timeButton = new Button();
             _startCancelButton = new Button();
-
-            //testing
+            
             _iut = new Display(_output);
 
+            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _iut, _light, _cookController);
+        }
+
+        [Test]
+
+        public void OogaBooga()
+        {
+            _powerButton.Press();
+            _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("Display shows: 50 W"))); //Default power level er 50
+        }
+
+        [Test]
+        public void OogaBoogaLoo()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("Display shows: 01:00"))); //Default time er 1min
         }
     }
 }
+
