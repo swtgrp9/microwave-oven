@@ -35,6 +35,7 @@ namespace Microwave.Test.Integration
 
         private ILight _light;
 
+
         private UserInterface _iut;
 
         [SetUp]
