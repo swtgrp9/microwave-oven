@@ -31,28 +31,30 @@ namespace Microwave.Test.Integration
 
         private ILight _light;
 
-        private Output _uut;
+        private Output _sut;
 
         [SetUp]
         public void SetUp()
         {
-            //fakes
+            //testing
+            _sut = new Output();
 
-            
+
             //includes
-            _display = new Display(_uut);
-            _light = new Light(_uut);
-            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
+            _display = new Display(_sut);
+            _light = new Light(_sut);
             _door = new Door();
             _powerButton = new Button();
             _timeButton = new Button();
             _startCancelButton = new Button();
-            _powerTube = new PowerTube(_uut);
+            _powerTube = new PowerTube(_sut);
+            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
 
+        }
 
-
-            //testing
-            _uut = new Output();
+        [Test]
+        public void Testtesthest()
+        {
 
         }
     }

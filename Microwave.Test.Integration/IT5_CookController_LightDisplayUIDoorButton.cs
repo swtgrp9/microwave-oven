@@ -7,6 +7,8 @@ using NUnit.Framework;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Microwave.Test.Integration
 {
@@ -38,7 +40,7 @@ namespace Microwave.Test.Integration
             //stubs
             _output = Substitute.For<IOutput>();
             _timer = Substitute.For<ITimer>();
-           
+            _powerTube = Substitute.For<IPowerTube>();
 
             //top
             _powerButton = new Button();
@@ -52,9 +54,10 @@ namespace Microwave.Test.Integration
 
             //includes
             _display = new Display(_output);
-            _powerTube = new PowerTube(_output);
+            //_powerTube = new PowerTube(_output);
 
            
+
             //Sut
            
             _cookController = new CookController(_timer, _display, _powerTube);
@@ -65,6 +68,30 @@ namespace Microwave.Test.Integration
 
 
         }
+
+        [Test]
+        public void UserInterfaceCallsCookController_TurnsOnPowerTube()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+
+            _timer.Received(1).Start(Arg.Any<int>());
+            _powerTube.Received(1).TurnOn(Arg.Any<int>());
+        }
+
+        [Test]
+        public void UserInterfaceCallsCookController_TurnsOffPowerTube()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+            _startCancelButton.Press();
+
+            _timer.Received(1).Stop();
+            _powerTube.Received(1).TurnOff();
+        }
+
         [Test]
         public void UserInterfaceCalledByCookController()
         {
@@ -76,18 +103,20 @@ namespace Microwave.Test.Integration
             _light.Received(1).TurnOff();
         }
 
+       
+        [Test]
+        public void CookControllerCallsDisplay()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
 
+            _timer.TimeRemaining.Returns(55);
+            _timer.TimerTick += Raise.Event();
 
-        ////[Test]
-        ////public void CookControllerCallsDisplay()
-        ////{
-        ////    _powerButton.Press();
-        ////    _timeButton.Press();
-        ////    _startCancelButton.Press();
+            //Thread.Sleep(6000);
 
-        ////    _timer.TimeRemaining();
-
-        ////    _output.Received(1).OutputLine(Arg.Is("Display shows: "));
-        ////}
+            _output.Received(1).OutputLine(Arg.Is("Display shows: 00:55"));
+        }
     }
 }
