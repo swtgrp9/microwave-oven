@@ -89,9 +89,27 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void bla()
+        public void StartCooking_CookControllerCallsPowerTube_TurnOff()
         {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
 
+            _timer.Expired += Raise.Event();
+
+            _output.Received(1).OutputLine(Arg.Is("PowerTube turned off"));
+        }
+
+        [Test]
+        public void CookControllerCallsDisplay()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+
+            _timer.TimeRemaining()
+
+            _output.Received(1).OutputLine(Arg.Is("Display shows: "));
         }
     }
 }
