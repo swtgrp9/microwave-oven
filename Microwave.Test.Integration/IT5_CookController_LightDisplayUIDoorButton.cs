@@ -41,6 +41,7 @@ namespace Microwave.Test.Integration
             _output = Substitute.For<IOutput>();
             _timer = Substitute.For<ITimer>();
             _powerTube = Substitute.For<IPowerTube>();
+            _light = Substitute.For<ILight>();  //Faked for at bryde loop i dep. tree
 
             //top
             _powerButton = new Button();
@@ -48,15 +49,10 @@ namespace Microwave.Test.Integration
             _startCancelButton = new Button();
             _door = new Door();
 
-            //_light = new Light(_output);
-            _light = Substitute.For<ILight>();
 
 
             //includes
             _display = new Display(_output);
-            //_powerTube = new PowerTube(_output);
-
-           
 
             //Sut
            

@@ -48,7 +48,6 @@ namespace Microwave.Test.Integration
             //testing
             _sut = new Output();
 
-
             //includes
             _display = new Display(_sut);
             _light = new Light(_sut);

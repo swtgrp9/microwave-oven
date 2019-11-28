@@ -38,6 +38,7 @@ namespace Microwave.Test.Integration
         {
             //stubs
             _output = Substitute.For<IOutput>();
+            _light = Substitute.For<ILight>();
 
 
             //top
@@ -45,15 +46,13 @@ namespace Microwave.Test.Integration
             _timeButton = new Button();
             _startCancelButton = new Button();
             _door = new Door();
+            _timer = new Timer();
 
-            //_light = new Light(_output);
-            _light = Substitute.For<ILight>();
 
 
             //includes
             _display = new Display(_output);
             _powerTube = new PowerTube(_output);
-            _timer = new Timer();
 
 
             //Sut

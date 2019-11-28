@@ -11,13 +11,13 @@ using MicrowaveOvenClasses.Interfaces;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT1_DoorUI
+    public class IT2_DoorUI
     {
         private IButton _powerButton;
         private IButton _timeButton;
         private IButton _startCancelButton;
 
-        private IPowerTube _powerTube;
+        //private IPowerTube _powerTube;
 
         private ICookController _cookController;
         private ILight _light;
@@ -32,8 +32,6 @@ namespace Microwave.Test.Integration
             _cookController = Substitute.For<ICookController>();
             _light = Substitute.For<ILight>();
             _display = Substitute.For<IDisplay>();
-
-            _powerTube = Substitute.For<IPowerTube>();
 
             //includes
             _door = new Door();
@@ -63,27 +61,11 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void OpenDoorWhileSetup()
+        public void OpenDoorWhileCooking()
         {
-            _powerButton.Press();
-            _display.ShowPower(100);
-            _door.Open();
-           
-            _display.Received().Clear();
-
+            //TODO
 
         }
-
-        //[Test]
-        //public void OpenDoorWhileCooking()
-        //{
-
-        //    _powerTube.TurnOn(100);
-        //    _cookController.StartCooking(100, 10);
-        //    _door.Open();
-        //    _powerTube.TurnOff();
-
-        //}
 
         //[Test]
         //public void OpenDoorBeforeCooking()

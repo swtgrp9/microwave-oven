@@ -11,7 +11,7 @@ using MicrowaveOvenClasses.Interfaces;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT2_ButtonUI
+    public class IT1_ButtonUI
     {
         private IButton _powerButton;
         private IButton _timeButton;
@@ -30,9 +30,9 @@ namespace Microwave.Test.Integration
             _cookController = Substitute.For<ICookController>();
             _light = Substitute.For<ILight>();
             _display = Substitute.For<IDisplay>();
+            _door = Substitute.For<IDoor>();
 
             //includes
-            _door = new Door();
             _powerButton = new Button();
             _timeButton = new Button();
             _startCancelButton = new Button();
@@ -125,8 +125,6 @@ namespace Microwave.Test.Integration
            
            
         }
-
-
 
     }
 }

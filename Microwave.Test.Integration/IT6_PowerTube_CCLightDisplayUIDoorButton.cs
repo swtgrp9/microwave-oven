@@ -46,11 +46,11 @@ namespace Microwave.Test.Integration
             _startCancelButton = new Button();
             _door = new Door();
 
-            //_light = new Light(_output);
-            _light = Substitute.For<ILight>();
+
 
 
             //includes
+            _light = new Light(_output);
             _display = new Display(_output);
             _powerTube = new PowerTube(_output);
 
