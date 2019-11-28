@@ -101,9 +101,8 @@ namespace Microwave.Test.Integration
 
             Thread.Sleep(60000);
 
-            _output.Received(1).OutputLine(Arg.Is("Display cleared"));
-            _output.Received(1).OutputLine(Arg.Is("Display shows: 01:00"));
-            _output.Received(1).OutputLine(Arg.Is("PowerTube works with 50 W"));
+            _output.Received().OutputLine(Arg.Is("Display shows: 01:00"));
+            _output.Received().OutputLine(Arg.Is("PowerTube works with 50 W"));
         }
 
     }
