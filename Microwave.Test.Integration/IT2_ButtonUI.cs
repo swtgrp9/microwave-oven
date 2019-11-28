@@ -104,7 +104,7 @@ namespace Microwave.Test.Integration
             _timeButton.Press();
             _startCancelButton.Press();
 
-            _display.Received(1).Clear();
+            
             _light.Received(1).TurnOn();
             _cookController.Received(1).StartCooking(Arg.Any<int>(), Arg.Any<int>());
         }
@@ -120,7 +120,7 @@ namespace Microwave.Test.Integration
             
             _startCancelButton.Press();
             _cookController.Received(1).Stop();
-            _display.Received(2).Clear();
+            _display.Received(1).Clear();
             _light.Received(1).TurnOff();
            
            
