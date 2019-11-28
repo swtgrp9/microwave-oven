@@ -12,47 +12,85 @@ namespace Microwave.Test.Integration
 {
     public class IT5_CookController_LightDisplayUIDoorButton
     {
+        //Top
         private IButton _powerButton;
         private IButton _timeButton;
         private IButton _startCancelButton;
-
-        private IDisplay _display;
-
-        private IPowerTube _powerTube;
-
-        private ITimer _timer;
-
         private IDoor _door;
 
+        //stubs
+        
         private IOutput _output;
 
-        private IUserInterface _userInterface;
+        //Includes
+        private CookController _cookController;
+        private IDisplay _display;
+        private IPowerTube _powerTube;
+        private ITimer _timer;
+        private UserInterface _iut;
 
         private ILight _light;
-
-        private CookController _uut;
 
         [SetUp]
         public void SetUp()
         {
-            //fakes
 
+            //stubs
             _output = Substitute.For<IOutput>();
-            _powerTube = Substitute.For<IPowerTube>();
             _timer = Substitute.For<ITimer>();
+           
 
-            //includes
-            _display = new Display(_output);
-            _light = new Light(_output);
-            _userInterface = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _uut);
-            _door = new Door();
+            //top
             _powerButton = new Button();
             _timeButton = new Button();
             _startCancelButton = new Button();
+            _door = new Door();
+
+            //_light = new Light(_output);
+            _light = Substitute.For<ILight>();
 
 
-            //testing
-            _uut = new CookController(_timer, _display, _powerTube, _userInterface);
+            //includes
+            _display = new Display(_output);
+            _powerTube = new PowerTube(_output);
+
+           
+            //Sut
+           
+            _cookController = new CookController(_timer, _display, _powerTube);
+            _iut = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
+            _cookController.UI = _iut;
+
+    
+
+
+        }
+        [Test]
+        public void UserInterfaceCalledByCookController()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+
+            _timer.Expired += Raise.Event();
+            _light.Received(1).TurnOff();
+        }
+
+        [Test]
+        public void StartCooking_CookControllerCallsPowerTube_TurnOn()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+
+            _timer.Expired += Raise.Event();
+
+            _output.Received(1).OutputLine(Arg.Is("PowerTube works with 50 W"));
+        }
+
+        [Test]
+        public void bla()
+        {
 
         }
     }
