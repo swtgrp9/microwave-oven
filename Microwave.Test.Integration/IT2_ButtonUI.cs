@@ -11,7 +11,7 @@ using MicrowaveOvenClasses.Interfaces;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT1_ButtonUI
+    public class IT2_ButtonUI
     {
         private IButton _powerButton;
         private IButton _timeButton;
@@ -55,7 +55,7 @@ namespace Microwave.Test.Integration
         [Test]
         public void TimerButPressed_DisplayDefaultTimer()
         {
-            
+            _powerButton.Press();
             _timeButton.Press();
             _display.Received().ShowTime(Arg.Any<int>(), Arg.Any<int>());
 
@@ -121,7 +121,7 @@ namespace Microwave.Test.Integration
             _startCancelButton.Press();
             _cookController.Received(1).Stop();
             _display.Received(2).Clear();
-            _light.Received(1).TurnOn();
+            _light.Received(1).TurnOff();
            
            
         }
