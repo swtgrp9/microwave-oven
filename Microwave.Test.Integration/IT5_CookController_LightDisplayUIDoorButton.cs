@@ -76,40 +76,18 @@ namespace Microwave.Test.Integration
             _light.Received(1).TurnOff();
         }
 
-        [Test]
-        public void StartCooking_CookControllerCallsPowerTube_TurnOn()
-        {
-            _powerButton.Press();
-            _timeButton.Press();
-            _startCancelButton.Press();
 
-            _timer.Expired += Raise.Event();
 
-            _output.Received(1).OutputLine(Arg.Is("PowerTube works with 50 W"));
-        }
+        ////[Test]
+        ////public void CookControllerCallsDisplay()
+        ////{
+        ////    _powerButton.Press();
+        ////    _timeButton.Press();
+        ////    _startCancelButton.Press();
 
-        [Test]
-        public void StartCooking_CookControllerCallsPowerTube_TurnOff()
-        {
-            _powerButton.Press();
-            _timeButton.Press();
-            _startCancelButton.Press();
+        ////    _timer.TimeRemaining();
 
-            _timer.Expired += Raise.Event();
-
-            _output.Received(1).OutputLine(Arg.Is("PowerTube turned off"));
-        }
-
-        [Test]
-        public void CookControllerCallsDisplay()
-        {
-            _powerButton.Press();
-            _timeButton.Press();
-            _startCancelButton.Press();
-
-            _timer.TimeRemaining()
-
-            _output.Received(1).OutputLine(Arg.Is("Display shows: "));
-        }
+        ////    _output.Received(1).OutputLine(Arg.Is("Display shows: "));
+        ////}
     }
 }
