@@ -77,7 +77,7 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void Door_Opened_Timer_Stopped()
+        public void Door_Opened_Timer_Resets()
         {
             _powerButton.Press();
             _timeButton.Press();
@@ -89,6 +89,8 @@ namespace Microwave.Test.Integration
             _door.Close();
 
             _output.Received(1).OutputLine(Arg.Is("Display shows: 01:00"));
+
+
         }
 
         [Test]
@@ -98,10 +100,10 @@ namespace Microwave.Test.Integration
             _timeButton.Press();
             _startCancelButton.Press();
 
-            Thread.Sleep(60000);
+            Thread.Sleep(61000);
 
-            _output.Received().OutputLine(Arg.Is("Display shows: 01:00"));
-            _output.Received().OutputLine(Arg.Is("PowerTube works with 50 W"));
+            _output.Received(1).OutputLine(Arg.Is("PowerTube turned off"));
+            _output.Received().OutputLine(Arg.Is("Display cleared"));
         }
 
     }
