@@ -68,8 +68,6 @@ namespace Microwave.Test.Integration
             _timeButton.Press();
             _startCancelButton.Press();
 
-            _timer.Expired += Raise.Event();
-
             _output.Received(1).OutputLine(Arg.Is("PowerTube works with 50 W"));
         }
 
