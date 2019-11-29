@@ -69,7 +69,7 @@ namespace Microwave.Test.Integration
             _timeButton.Press();
             _startCancelButton.Press();
             
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
             _output.Received(1).OutputLine(Arg.Is("Display shows: 00:58"));
 
