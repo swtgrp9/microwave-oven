@@ -256,6 +256,8 @@ namespace Microwave.Test.Unit
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             // Now in cooking
 
+            uut.CookingIsDone(); //Tilføjet efter rettelse af onStartCancelPressed - display skal ikke cleares ved cook start
+
             display.Received(1).Clear();
         }
 
